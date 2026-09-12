@@ -1,91 +1,93 @@
-# ByteBank ATM
+# Desenvolvimento de um Terminal de Autoatendimento Bancário Seguro: Aplicação de *OS Hardening* e *Interface Kiosk*
 
-## 1. Visão Geral do Projeto
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![Tkinter](https://img.shields.io/badge/GUI-Tkinter-yellow)
+![SQLite](https://img.shields.io/badge/Database-SQLite-lightgrey)
+![Ubuntu](https://img.shields.io/badge/OS-Ubuntu%2026%20LTS-orange)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-O **ByteBank ATM** é uma aplicação desktop desenvolvida em Python com interface gráfica via Tkinter. Seu propósito é simular de forma realista as operações de um caixa eletrônico.
+## Sumário
 
-O software foi projetado com foco em terminais de autoatendimento (**Kiosk Mode**) e atua como a aplicação principal de uma remasterização acadêmica do sistema operacional **Linux Ubuntu 26 LTS**.
-
----
-
-## 2. Arquitetura do Sistema
-
-O projeto utiliza uma arquitetura baseada no padrão de **separação de responsabilidades**, dividindo a interface gráfica, a regra de negócio e a persistência de dados.
-
-### Estrutura de Diretórios
-
-- **`/gui` — Interface Gráfica:**  
-  Contém todas as telas do sistema. Gerencia o que o usuário vê e como ele interage.
-
-- **`/models` — Regras de Negócio:**  
-  Contém as lógicas de movimentação de dinheiro, registro de histórico e contas bancárias.
-
-- **`/data` — Persistência:**  
-  Diretório gerado automaticamente para armazenar o "banco de dados" em JSON (`accounts.json`) e os comprovantes gerados (`/recibos`).
-
-- **`main.py` e `config.py`:**  
-  Arquivos localizados na raiz do projeto, responsáveis por iniciar a aplicação e centralizar as configurações globais, respectivamente.
+- [Resumo](#1-resumo-abstract)
+- [Introdução e Justificativa](#2-introdução-e-justificativa)
+- [Arquitetura e Metodologia](#3-arquitetura-e-metodologia)
+  - [Infraestrutura e Sistema Operacional](#31-infraestrutura-e-sistema-operacional-customização-da-iso)
+  - [Lógica de Negócios e Persistência](#32-lógica-de-negócios-e-persistência-back-end-em-python-poo)
+  - [Interface Gráfica](#33-interface-gráfica-front-end-em-python-tkinter)
+- [Mecanismos de Segurança Implementados](#4-mecanismos-de-segurança-implementados)
+- [Como Executar](#5-como-executar-instruções-da-iso)
+- [Considerações Finais e Referências](#6-considerações-finais-e-referências)
 
 ---
 
-## 3. Módulos e Classes Principais
+## 1. Resumo (Abstract)
 
-### 3.1. Gerenciamento de Contas e Lógica (`models/account.py`)
+Este projeto descreve a concepção e o desenvolvimento de um simulador de Caixa Eletrônico (ATM) focado em alta segurança. O sistema utiliza uma versão remasterizada do Ubuntu Linux (26 LTS) para operar em ambiente restrito, empregando técnicas avançadas de isolamento operacional. A aplicação principal foi construída com interface gráfica em Python Tkinter e lógica de negócios estruturada em Programação Orientada a Objetos (POO), acoplada a um banco de dados SQLite local para persistência de dados. O objetivo principal é demonstrar um ambiente imune a intervenções físicas externas através do bloqueio de periféricos de entrada não autorizados, limitando a interação estritamente ao uso do mouse em um teclado virtual, e da redução drástica dos recursos do sistema operacional.
 
-- **Classe `Account`:**  
-  Representa a conta de um cliente. É responsável por validar senhas e executar as operações financeiras isoladas (`sacar`, `depositar`, `transferir`). Também aciona a geração dos recibos físicos em arquivos `.txt`.
+## 2. Introdução e Justificativa
 
-- **Classe `Transaction`:**  
-  Modelo de dados responsável por estruturar cada operação, contendo informações como tipo, valor, saldo anterior, saldo novo e timestamp, formando o histórico do extrato.
+Terminais de autoatendimento (ATMs) são alvos constantes de ataques físicos e lógicos, exigindo camadas rigorosas de segurança. A construção deste projeto baseia-se na necessidade de mitigar vulnerabilidades em nível de Sistema Operacional (SO) e de aplicação.
 
-- **Classe `AccountManager`:**  
-  Atua como um mini banco de dados. Carrega e salva as informações no arquivo `accounts.json`, além de cuidar da autenticação (login).
+O projeto justifica-se pela aplicação de três conceitos fundamentais da segurança da informação:
 
-### 3.2. Interface e Navegação (`gui/`)
+- **OS Hardening (Endurecimento de Sistema):** processo de garantir que o sistema operacional execute estritamente o necessário. O sistema base foi despojado de serviços irrelevantes (como gerenciadores de rede e conectividade) para evitar escalonamento de privilégios e ataques remotos.
+- **Redução da Superfície de Ataque:** ao desabilitar portas USB e o uso do teclado físico, o vetor de ataque local é praticamente eliminado, impedindo a injeção de *malwares* via *hardware* ou a execução de atalhos de sistema.
+- **Interface Kiosk:** o ambiente de desktop padrão (Gnome) foi substituído pelo Openbox, configurado para aprisionar o usuário final unicamente na tela da aplicação, sem barra de tarefas, atalhos de janela ou menus de contexto.
 
-- **`main_window.py` / `BancoApp`:**  
-  É o "cérebro" da navegação. Controla qual tela está visível e gerencia o **Cronômetro de Segurança (Timeout)**.
+## 3. Arquitetura e Metodologia
 
-- **`styles.py`:**  
-  Centraliza a identidade visual, incluindo cores, fontes e estilos de botões, mantendo a padronização baseada no Design System escolhido (**Santander Light Mode**).
+O projeto foi dividido em camadas de *software* independentes e uma camada de infraestrutura de Sistema Operacional isolada.
 
-- **`transaction_screens.py`:**  
-  Utiliza o conceito de **Herança** da Programação Orientada a Objetos. A classe `BaseTransactionScreen` cria o teclado numérico padrão, enquanto as telas filhas (`SaqueScreen` e `DepositoScreen`) implementam apenas a ação final de cada operação.
+### 3.1. Infraestrutura e Sistema Operacional (Customização da ISO)
 
----
+A base do ambiente é uma ISO customizada do Ubuntu 26 LTS, construída e homologada em máquina virtual (VirtualBox). A edição da imagem do sistema foi realizada utilizando a ferramenta **Cubic** (Custom Ubuntu ISO Creator).
 
-## 4. Regras de Negócio Implementadas
+A metodologia de endurecimento incluiu:
 
-1. **Autenticação Restrita:**  
-   O acesso ao menu só é permitido mediante a combinação correta de Número da Conta e Senha.
+- Substituição do ambiente Gnome pelo gerenciador de janelas **Openbox**, configurado via `~/.config/openbox/autostart` para inicializar o aplicativo em modo tela cheia (*fullscreen*), limitando a interação do usuário apenas à janela do caixa.
+- Criação de um usuário inicial com permissões severamente restritas, incapaz de executar comandos administrativos (`sudo`).
+- Remoção em massa de pacotes não essenciais, isolando o terminal de qualquer rede externa.
+- Desabilitação via *kernel/udev* dos mapeamentos de teclado, restringindo a interação física estritamente ao uso do clique esquerdo do *mouse*.
 
-2. **Validação de Saldo:**  
-   Operações de Saque e Transferência bloqueiam valores que excedam o saldo disponível.
+### 3.2. Lógica de Negócios e Persistência (Back-end em Python POO)
 
-3. **Segurança por Inatividade (Timeout):**  
-   Se o terminal ficar **30 segundos** sem receber cliques ou interações de teclado, a sessão do usuário é imediatamente encerrada e o sistema retorna à tela de login.
+O núcleo financeiro do simulador (presente no módulo `models/account.py`) foi estruturado utilizando Programação Orientada a Objetos em Python.
 
-4. **Registro de Transações Duplas:**  
-   Nas transferências, o sistema gera o histórico detalhado tanto na conta de origem (dinheiro enviado) quanto na conta de destino (dinheiro recebido).
+- **Encapsulamento em Memória:** os dados sensíveis da conta são protegidos como atributos privados da classe, garantindo que o front-end interaja com os dados apenas por meio de métodos validados, evitando corrupção de estado.
+- **Persistência de Dados Offline (SQLite):** como o sistema opera de forma isolada e sem conexões de rede, todas as transações, saldos e históricos são registrados de forma segura e local utilizando um banco de dados SQLite, garantindo a integridade dos registros mesmo após a reinicialização da máquina.
 
----
+### 3.3. Interface Gráfica (Front-end em Python Tkinter)
 
-## 5. Integração com o Sistema Operacional (Ubuntu)
+A interface de usuário foi concebida de forma modular no diretório `gui/`, separando responsabilidades:
 
-Para garantir o funcionamento em modo terminal de autoatendimento, o sistema implementa travas no nível do Sistema Operacional:
+- **Módulos Independentes:** telas específicas gerenciam contextos isolados, como `login_screen.py`, `menu_screen.py`, `extrato_screen.py` e `transaction_screens.py`. O módulo `main_window.py` serve como orquestrador de janelas.
+- **Teclado Virtual Seguro:** devido à ausência de teclado físico por restrições de SO, a interface Tkinter implementa um teclado numérico/alfanumérico virtual na própria tela. A entrada de dados (como senhas e valores de saque) é realizada exclusivamente através de cliques com o botão esquerdo do *mouse*.
 
-- **Tela Cheia Obrigatória:**  
-  O método `self.attributes('-fullscreen', True)` garante que a aplicação cubra toda a área de trabalho.
+## 4. Mecanismos de Segurança Implementados
 
-- **Bloqueio de Saída:**  
-  Comandos como `WM_DELETE_WINDOW` e a tecla `<Escape>` foram interceptados para impedir que o usuário feche a aplicação acidentalmente ou acesse o ambiente Linux por trás do caixa eletrônico.
+- Isolamento de interface gráfica em modo Kiosk com Openbox (*fullscreen* obrigatório).
+- Bloqueio em nível de *kernel/OS* para portas USB e teclado físico.
+- Desativação de *daemons* e serviços de rede para operação *offline*.
+- Armazenamento local autônomo através de banco de dados SQLite.
+- Sanitização e encapsulamento de estado da aplicação em Python (POO).
+- Inicialização da aplicação ligada a um usuário sem privilégios administrativos.
 
-- **Feedback Sonoro:**  
-  Integração com o pacote `canberra-gtk-play`, nativo do Linux, para emitir sons a cada tecla pressionada no teclado numérico virtual.
+## 5. Como Executar (Instruções da ISO)
 
----
+1. Faça o *download* da ISO customizada do sistema.
+2. Crie uma nova Máquina Virtual no VirtualBox.
+3. Aloque um mínimo de 2GB de RAM e 1 VCPU.
+4. Anexe a ISO como disco de *boot*.
+5. Inicie a máquina. O sistema fará o *logon* automático no usuário restrito e, através do *autostart* do Openbox, executará o interpretador Python chamando o arquivo `main.py` em tela cheia.
 
-## 6. Autoria e Contatos
+> **Nota:** o uso do teclado físico estará inoperante pela configuração de segurança. Toda a navegação e digitação de valores deve ser feita pelo teclado virtual na tela usando o botão esquerdo do mouse.
 
-- **Desenvolvedor:** Hallisson Eduardo Pires da Silva
-- **Contato:** [hallissonedu08@gmail.com](mailto:hallissonedu08@gmail.com)
+## 6. Considerações Finais e Referências
+
+O projeto alcança seu objetivo ao demonstrar na prática como a combinação de boas práticas de engenharia de *software* (Python POO + SQLite) com a configuração agressiva de sistema operacional (*Hardening* em Linux) pode criar dispositivos de uso público altamente resilientes a invasões físicas.
+
+**Referências:**
+
+- ISO/IEC 27001 — Tecnologia da Informação — Técnicas de Segurança.
+- Documentação Oficial do Python (PEP 8, Tkinter, SQLite3).
+- Documentação do Openbox e Ubuntu OS.

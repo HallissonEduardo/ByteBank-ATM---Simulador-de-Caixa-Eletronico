@@ -1,0 +1,12 @@
+# Este projeto utiliza exclusivamente módulos da biblioteca padrão do Python
+# (tkinter, sqlite3, os, etc.), portanto não há dependências externas
+# obrigatórias para execução em um ambiente Python padrão.
+#
+# Caso o ambiente Linux customizado não inclua o Tkinter por padrão,
+# instale-o via gerenciador de pacotes do sistema (não via pip):
+#   sudo apt-get install python3-tk
+#
+# Dependências de desenvolvimento (opcionais, para lint/format/testes):
+# black==24.8.0
+# flake8==7.1.1
+# pytest==8.3.3
