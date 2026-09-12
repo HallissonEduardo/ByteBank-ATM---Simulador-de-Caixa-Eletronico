@@ -21,7 +21,7 @@ O sistema conta com um ecossistema visual inspirado no design system de grandes 
 ## 💿 ISO do Ubuntu Customizada
 
 O ByteBank ATM faz parte de um ecossistema maior, sendo o software principal de uma distribuição Linux remasterizada.
-- **Download da ISO:** [Clique aqui para baixar a ISO do Ubuntu 26 LTS Customizado](https://drive.google.com/drive/folders/1uvSzPTsW___l3kGXn5YfClX2yKXkoyHY?usp=sharing) *(Substitua a hashtag `#` pelo link do seu Google Drive/OneDrive com a imagem ISO)*.
+- **Download da ISO:** [Clique aqui para baixar a ISO do Ubuntu 26 LTS Customizado](https://drive.google.com/drive/folders/1uvSzPTsW___l3kGXn5YfClX2yKXkoyHY?usp=sharing)
 
 ## 💻 Como executar o projeto localmente
 
@@ -31,4 +31,4 @@ Certifique-se de ter o Python 3.x instalado em sua máquina. O projeto utiliza o
 ### Passos para execução
 1. Clone este repositório:
    ```bash
-   git clone [https://github.com/HallissonEduardo/ByteBank-ATM---Simulador-de-Caixa-Eletr-nico.git](https://github.com/HallissonEduardo/ByteBank-ATM---Simulador-de-Caixa-Eletr-nico.git)
+   git clone [https://github.com/HallissonEduardo/ByteBank-ATM---Simulador-de-Caixa-Eletronico.git](https://github.com/HallissonEduardo/ByteBank-ATM---Simulador-de-Caixa-Eletronico.git)
