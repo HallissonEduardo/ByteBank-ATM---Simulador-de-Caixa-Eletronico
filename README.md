@@ -21,7 +21,7 @@ O sistema conta com um ecossistema visual inspirado no design system de grandes 
 ## 💿 ISO do Ubuntu Customizada
 
 O ByteBank ATM faz parte de um ecossistema maior, sendo o software principal de uma distribuição Linux remasterizada.
-- **Download da ISO:** [Clique aqui para baixar a ISO do Ubuntu 26 LTS Customizado](https://drive.google.com/drive/folders/1uvSzPTsW___l3kGXn5YfClX2yKXkoyHY?usp=sharing) *(Substitua a hashtag `#` pelo link do seu Google Drive/OneDrive com a imagem ISO)*.
+- **Download da ISO:** [Clique aqui para baixar a ISO do Ubuntu 26 LTS Customizado](https://drive.google.com/drive/folders/1uvSzPTsW___l3kGXn5YfClX2yKXkoyHY?usp=sharing)
 
 ## 💻 Como executar o projeto localmente
 
