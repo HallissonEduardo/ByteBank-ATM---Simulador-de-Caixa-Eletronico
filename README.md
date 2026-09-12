@@ -31,4 +31,4 @@ Certifique-se de ter o Python 3.x instalado em sua máquina. O projeto utiliza o
 ### Passos para execução
 1. Clone este repositório:
    ```bash
-   git clone [https://github.com/HallissonEduardo/ByteBank-ATM---Simulador-de-Caixa-Eletr-nico.git](https://github.com/HallissonEduardo/ByteBank-ATM---Simulador-de-Caixa-Eletr-nico.git)
+   git clone [https://github.com/HallissonEduardo/ByteBank-ATM---Simulador-de-Caixa-Eletronico.git](https://github.com/HallissonEduardo/ByteBank-ATM---Simulador-de-Caixa-Eletronico.git)
