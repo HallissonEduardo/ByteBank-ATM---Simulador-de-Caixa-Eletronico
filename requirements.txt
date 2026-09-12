@@ -1,0 +1,29 @@
+# Este projeto utiliza exclusivamente módulos da biblioteca padrão do Python
+# (tkinter, sqlite3, os, etc.), portanto não há dependências externas
+# obrigatórias para execução em um ambiente Python padrão.
+#
+# Caso o ambiente Linux customizado não inclua o Tkinter por padrão,
+# instale-o via gerenciador de pacotes do sistema (não via pip):
+#   sudo apt-get install python3-tk
+#
+# Dependências de desenvolvimento (opcionais, para lint/format/testes):
+# black==24.8.0
+# flake8==7.1.1
+# pytest==8.3.3
+
+
+
+## 💿 ISO do Ubuntu Customizada
+
+O ByteBank ATM faz parte de um ecossistema maior, sendo o software principal de uma distribuição Linux remasterizada.
+- **Download da ISO:** [Clique aqui para baixar a ISO do Ubuntu 26 LTS Customizado](https://drive.google.com/drive/folders/1uvSzPTsW___l3kGXn5YfClX2yKXkoyHY?usp=sharing)
+
+## 💻 Como executar o projeto localmente
+
+### Pré-requisitos
+Certifique-se de ter o Python 3.x instalado em sua máquina. O projeto utiliza o `tkinter`, que geralmente já vem embutido nas instalações padrão do Python.
+
+### Passos para execução
+1. Clone este repositório:
+   ```bash
+   git clone [https://github.com/HallissonEduardo/ByteBank-ATM---Simulador-de-Caixa-Eletronico.git](https://github.com/HallissonEduardo/ByteBank-ATM---Simulador-de-Caixa-Eletronico.git)
