@@ -1,0 +1,18 @@
+# Arquivos de compilação do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ambientes Virtuais
+.venv/
+venv/
+env/
+
+# Configurações de IDEs (VS Code, PyCharm, etc)
+.idea/
+.vscode/
+
+# Arquivos gerados pelo sistema (Banco de dados e Recibos locais)
+# O Git manterá a pasta 'data', mas ignorará os arquivos gerados dentro dela
+data/accounts.json
+data/recibos/*.txt
